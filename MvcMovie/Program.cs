@@ -20,6 +20,13 @@ namespace MvcMovie
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseConfiguration(BuildConfiguration())
+                .Build();
+
+        public static IConfiguration BuildConfiguration() =>
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", optional: true)
                 .Build();
     }
 }
