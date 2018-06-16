@@ -1,0 +1,46 @@
+﻿@page
+@model Lineee.Pages.Talks.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Talk</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Talk.FromNameID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Talk.FromNameID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Talk.ToNameID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Talk.ToNameID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Talk.DateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Talk.DateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Talk.Message)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Talk.Message)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Talk.ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
