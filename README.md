@@ -15,4 +15,4 @@ Windows上で発行済みの実行可能プロジェクト"freee-line/Released/w
 
 ソースからビルドする場合、[.NET Core 2.0](https://www.microsoft.com/net/download/all)をインストールする必要があります。
 
-img/Login.png
+![ログイン画面](img/Login.png)
