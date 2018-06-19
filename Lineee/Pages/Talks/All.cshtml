@@ -1,26 +1,32 @@
 ﻿@page "{id:int}"
 @model Lineee.Pages.Talks.AllModel
 @{
-    ViewData["Title"] = Model.MyName;
+    ViewData["Title"] = Model.MyAccount.Name;
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountList[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.AccountList)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-            </tr>
+<head>
+    <style>
+        .list-group-item-heading {
+            overflow : hidden;
         }
-    </tbody>
-</table>
+        .list-group-item-text{
+            overflow : hidden;
+        }
+    </style>
+</head>
+
+<h1></h1>
+<div class="list-group">
+    @foreach (var item in Model.AccountList)
+    {
+        if (item.ID != Model.MyAccount.ID)
+        {
+            <a asp-page="./Room" asp-route-myid="@Model.MyAccount.ID" asp-route-toid="@item.ID" class="list-group-item">
+                <h3 class="list-group-item-heading">@item.Name</h3>
+                <div class="list-group-item-text">@Model.LastTalk[item]</div>
+            </a>
+
+        }
+
+    }
+</div>

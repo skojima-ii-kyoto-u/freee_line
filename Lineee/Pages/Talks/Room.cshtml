@@ -1,8 +1,98 @@
-﻿@page
+﻿@page "{myid:int}/{toid:int}"
 @model Lineee.Pages.Talks.RoomModel
 @{
-    ViewData["Title"] = "Room";
+    ViewData["Title"] = "Talk with " + Model.ToAccount.Name;
 }
 
-<h2>Room</h2>
+<head>
+    <style>
+        .my-overflow-wrap {
+            overflow-wrap: break-word;
+        }
 
+        .btn-ghost {
+            background: transparent;
+            border-style: none;
+        }
+    </style>
+</head>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var text = $('#monitoredText');
+        text.keyup(function () {
+            if (text.val().length > 0) {
+                $('#postButton').removeAttr('disabled');
+
+            }
+            else {
+                $('#postButton').attr('disabled', 'disabled');
+
+            }
+        });
+        text.keydown(function (e) {
+            if (event.ctrlKey) {
+                //Ctrl + Enter
+                if (e.keyCode === 13) {
+                    $('#postButton').trigger('click');
+                }
+            }
+        });
+        text.keyup(function (e) {
+            if (e.keyCode === 17) {
+                $('#keyNavigator').text("Ctrl+Enter >>");
+            }
+        });
+        text.keydown(function (e) {
+            if (e.keyCode === 17) {
+                $('#keyNavigator').text("     Enter >>");
+            }
+        });
+    });
+</script>
+
+<h1></h1>
+<div class="row">
+    <div class="col-sm-6">
+        @foreach (var item in Model.Talks.Where(talk =>
+         (talk.FromNameID == Model.MyAccount.ID && talk.ToNameID == Model.ToAccount.ID) ||
+         (talk.FromNameID == Model.ToAccount.ID && talk.ToNameID == Model.MyAccount.ID))
+         .ToList())
+        {
+            if (item.FromNameID == Model.MyAccount.ID)
+            {
+                <div class="panel panel-primary" align="right">
+                    <div class="panel-heading">
+                        <h4 class="my-overflow-wrap">@item.Message</h4>
+                    </div>
+                    <div class="panel-body">
+                        <small>@item.DateTime.ToString("MM/dd HH:mm:ss")</small>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="panel panel-info" align="left">
+                    <div class="panel-heading">
+                        <h4 class="my-overflow-wrap">@item.Message</h4>
+                    </div>
+                    <div class="panel-body">
+                        <small>@item.DateTime.ToString("MM/dd HH:mm:ss")</small>
+                    </div>
+                </div>
+            }
+        }
+
+        <form method="post" class="input-group">
+            <div id="keyNavigator">Ctrl+Enter >></div>
+            <textarea asp-for="@Model.NewTalk.Message" class="form-control" id="monitoredText"></textarea>
+            <span class="input-group-addon btn btn-primary">
+                <button class="btn-ghost" type="submit" asp-route-myid="@Model.MyAccount.ID" asp-route-toid="@Model.ToAccount.ID" value="send" id="postButton">
+                    <span class="glyphicon glyphicon-send"></span>
+                </button>
+                <!---->
+            </span>
+        </form>
+    </div>
+</div>
