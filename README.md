@@ -14,3 +14,5 @@ LINE風のトーク機能を提供するサーバーを作成しました。使�
 Windows上で発行済みの実行可能プロジェクト"freee-line/Released/win-x64.zip"を展開し、"Lineee.exe"を実行すればサーバーが立ちます。デフォルトでは5000番ポートが開きますが、"hosting.json"の番号部分を編集すればポート番号を変更できます。
 
 ソースからビルドする場合、[.NET Core 2.0](https://www.microsoft.com/net/download/all)をインストールする必要があります。
+
+img/Login.png
